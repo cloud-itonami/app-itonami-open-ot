@@ -261,6 +261,8 @@ No file system, no network beyond explicit `peer:` and `io:`, no clock other tha
 
 ## 12. Hardware reference: Giemon Mimi / Te / Atama
 
+> **Direction change (2026-10-28, JUN-494 / JUN-500):** the owner decided on **no C dependency** — kotoba built by Amu selfhost, on both Te cores. The C-based stack named in §12 and §14 (Zephyr LTS, WAMR AOT, Zenoh-Pico, bare-metal C on the M4) is the current reference design only; Amu has no Cortex-M target yet. Open: replacement design, re-basing Gates A and C, ADR-2605151200 amendment. See `AGENTS.md`.
+
 Per ADR §R1. Three reference boards under the Giemon brand (ADR-2605142200), body-part naming (mimi=ear / te=hand / atama=head) consistent with `etzhayyim-project-open-robo` (Giemon Otete).
 
 ### 12.1 Giemon Mimi (耳) — sensor RTU
@@ -285,7 +287,7 @@ Per ADR §R1. Three reference boards under the Giemon brand (ADR-2605142200), bo
 |---|---|
 | SoC | NXP i.MX RT1170 dual-core (Cortex-M7 @ 1 GHz + Cortex-M4 @ 400 MHz), 2 MB on-die SRAM, 16 MB external HyperRAM |
 | OS / runtime (M7) | Zephyr LTS + WAMR AOT + Zenoh-Pico (soft-RT cells) |
-| OS / runtime (M4) | bare-metal C (hard-RT motion / safety interlock) — see open question on second WAMR |
+| OS / runtime (M4) | ~~bare-metal C~~ superseded by the 2026-10-28 no-C decision: Amu-selfhost kotoba (hard-RT motion / safety interlock); no Cortex-M Amu target yet (JUN-500). The second-WAMR question is closed: no WAMR |
 | Power | 24 V DC industrial, max 12 W |
 | Digital output | 8 ch × 24 V, sourcing, 1 A per ch, short-circuit + thermal protected |
 | Analog output | 4 ch × 0–10 V, 12-bit DAC, 5 kSPS |
@@ -379,6 +381,8 @@ Run for 90 days at a partner site:
 Pilot site selection deferred — candidates: a university campus microgrid, a small industrial site with rooftop PV + diesel backup, or a remote island grid (Okinawa / Ogasawara). Selection drives 802.1Qbv TSN profile and NTP/PTP source.
 
 ## 14. Risk-1 acceptance test plan
+
+> **Direction change (2026-10-28):** Gates A and C below assume WAMR AOT, `wamrc`, LLVM 18 and Zephyr, all C. They are kept as the reference definition and must be re-based on the Amu stack once a Cortex-M target exists (JUN-500). Gate B's host simulator is unaffected in method but not in its WASM-cell premise.
 
 Per ADR §R4. Reference test rigs and pass/fail thresholds, restated for engineering use.
 

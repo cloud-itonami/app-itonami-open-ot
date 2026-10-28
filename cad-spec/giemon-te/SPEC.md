@@ -2,7 +2,7 @@
 
 **Status**: spec only (2026-05-15). KiCad sources begin post-Risk-1 PASS.
 
-Actuator-side RTU with dual-core SoC. M7 hosts soft-RT BFB cells (24 V DO, 0–10 V AO, CAN-FD). M4 reserved for hard-RT motion / safety interlock — see open question on whether M4 hosts a separate WAMR instance or stays bare-metal C.
+Actuator-side RTU with dual-core SoC. M7 hosts soft-RT BFB cells (24 V DO, 0–10 V AO, CAN-FD). M4 reserved for hard-RT motion / safety interlock. **Direction change (2026-10-28, JUN-494 / JUN-500): no C dependency — both cores run kotoba built by Amu selfhost; the earlier question (separate WAMR instance vs bare-metal C) is closed as neither.** No Amu Cortex-M target exists yet, so the stack rows below are the superseded reference design.
 
 ## 1. Functional block diagram
 
@@ -91,8 +91,8 @@ CAN-FD × 2 ◄──[ISO]──────┤  │ bare-metal C (option: WAMR 
 
 | Core | Stack |
 |---|---|
-| M7 | Zephyr LTS 4.x + WAMR AOT + Zenoh-Pico — soft-RT BFB cells (1 ms cycle, ≤100 µs jitter) |
-| M4 | bare-metal C (default) — hard-RT motion / safety interlock at 100 µs cycle. Optional second WAMR instance behind a build flag (carry-over open question per AGENTS.md) |
+| M7 | ~~Zephyr LTS 4.x + WAMR AOT + Zenoh-Pico~~ superseded by the no-C decision (replacement design open, JUN-500) — soft-RT BFB cells (1 ms cycle, ≤100 µs jitter) |
+| M4 | ~~bare-metal C~~ superseded: Amu-selfhost kotoba, hard-RT motion / safety interlock at 100 µs cycle (target not yet available, JUN-500) |
 
 IPC: NXP RPMsg-Lite mailbox between M7 and M4. M4 publishes telemetry to M7's Zenoh aggregator at ≤ 100 Hz.
 
