@@ -27,9 +27,9 @@ Reference implementation for **WASM-based industrial PLC and DLC** in non-safety
 
 ## Direction change (owner decision 2026-10-28, Linear JUN-494 / JUN-500): no C dependency
 
-The hardware-side runtime is to be **kotoba built by Amu selfhost, with no C dependency**, on **both** Te cores (M7 and M4). Whether Mimi and Atama follow is not yet decided. This supersedes every C-based choice in this repository (Zephyr LTS, WAMR AOT / `wamrc` / LLVM 18, Zenoh-Pico, "bare-metal C" on the M4) as the *target* direction.
+The hardware-side runtime is to be **kotoba built by Amu selfhost, with no C dependency**, on **all three boards**: Te (M7 and M4), Mimi, and Atama (owner, 2026-10-28). For Atama this reaches beyond the firmware tier: the NixOS RT / Linux kernel, CPython/LangGraph and Wasmtime sidecar in `SPEC.md` §12.3 are also C-based or C-hosted, and their replacement is not yet designed. This supersedes every C-based choice in this repository (Zephyr LTS, WAMR AOT / `wamrc` / LLVM 18, Zenoh-Pico, "bare-metal C" on the M4) as the *target* direction.
 
-**Status: direction only, not implemented.** Amu has no Cortex-M target or bare-metal runtime yet (tracked in JUN-500), so the C-based tables below remain the only concrete reference design and Risk-1 Gates A/B/C are still defined against it. Do not read the tables below as the chosen end state. Open follow-ups: replacement design for the M7 runtime/transport/scheduler, re-basing Gate A (WAMR WCET) and Gate C (WAMR/LLVM 18/Zephyr items) on the Amu stack, and whether ADR-2605151200 (`etzhayyim/root`, not reachable when this note was written) needs an amendment — that is an owner decision.
+**Status: direction only, not implemented.** Amu has no Cortex-M target or bare-metal runtime yet (tracked in JUN-500), so the C-based tables below remain the only concrete reference design and Risk-1 Gates A/B/C are still defined against it. Do not read the tables below as the chosen end state. Open follow-ups: replacement design for the Te M7, Mimi and Atama runtimes/transport/scheduler, re-basing Gate A (WAMR WCET) and Gate C (WAMR/LLVM 18/Zephyr items) on the Amu stack, and whether ADR-2605151200 (`etzhayyim/root`, not reachable when this note was written) needs an amendment — that is an owner decision.
 
 ## Scope summary
 

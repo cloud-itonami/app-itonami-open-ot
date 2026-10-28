@@ -2,6 +2,9 @@
 
 **Status**: spec only (2026-05-15). KiCad / NixOS module work begins post-Risk-1 PASS.
 
+
+> **Direction change (2026-10-28, JUN-494 / JUN-500 / JUN-508):** owner decision — no C dependency, kotoba built by Amu selfhost, on all three boards. The C-based stack described in this file is the superseded reference design; the replacement is not designed and Amu has no target for this board yet.
+
 Edge controller. Hosts the LangGraph Pregel orchestrator (CPython 3.11+ / Granian per ADR-2605080600), the RisingWave checkpointer client (per ADR-2605082100), and the OPC UA FX ↔ Zenoh bridge. Acts as TSN switch for the local Mimi/Te fabric.
 
 ## 1. Functional block diagram
