@@ -25,6 +25,12 @@ Reference implementation for **WASM-based industrial PLC and DLC** in non-safety
 | Lexicon × manifest CI validator | `etzhayyim/root:70-tools/scripts/open-ot/validate-cell-abi.py` |
 | Lexicon contract (`com.etzhayyim.apps.openOt.*`) | **not reachable** — see `docs/operator-quickstart.md` §4 |
 
+## Direction change (owner decision 2026-10-28, Linear JUN-494 / JUN-500): no C dependency
+
+The hardware-side runtime is to be **kotoba built by Amu selfhost, with no C dependency**, on **both** Te cores (M7 and M4). Whether Mimi and Atama follow is not yet decided. This supersedes every C-based choice in this repository (Zephyr LTS, WAMR AOT / `wamrc` / LLVM 18, Zenoh-Pico, "bare-metal C" on the M4) as the *target* direction.
+
+**Status: direction only, not implemented.** Amu has no Cortex-M target or bare-metal runtime yet (tracked in JUN-500), so the C-based tables below remain the only concrete reference design and Risk-1 Gates A/B/C are still defined against it. Do not read the tables below as the chosen end state. Open follow-ups: replacement design for the M7 runtime/transport/scheduler, re-basing Gate A (WAMR WCET) and Gate C (WAMR/LLVM 18/Zephyr items) on the Amu stack, and whether ADR-2605151200 (`etzhayyim/root`, not reachable when this note was written) needs an amendment — that is an owner decision.
+
 ## Scope summary
 
 | Tier | Pick | Why |
@@ -72,5 +78,5 @@ Reference implementation for **WASM-based industrial PLC and DLC** in non-safety
 
 - ST→WASM matiec port — defer until paying design partner asks?
 - TSN switch silicon for Atama — Marvell 88Q5050 vs Microchip LAN9692 vs NXP SJA1110, decision pending Q3 supply quotes.
-- Giemon Te M4 core — separate WAMR instance for hard-RT cells or stays bare-metal C only?
+- ~~Giemon Te M4 core — separate WAMR instance or bare-metal C?~~ Closed 2026-10-28: neither; no C dependency, kotoba on Amu selfhost (JUN-494 / JUN-500). New open item: the Cortex-M Amu target and M7 replacement design.
 - Pilot site for microgrid prototype — university campus / industrial site / remote island grid?
