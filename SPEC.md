@@ -261,7 +261,7 @@ No file system, no network beyond explicit `peer:` and `io:`, no clock other tha
 
 ## 12. Hardware reference: Giemon Mimi / Te / Atama
 
-> **Direction change (2026-10-28, JUN-494 / JUN-500):** the owner decided on **no C dependency** — kotoba built by Amu selfhost, on both Te cores. The C-based stack named in §12 and §14 (Zephyr LTS, WAMR AOT, Zenoh-Pico, bare-metal C on the M4) is the current reference design only; Amu has no Cortex-M target yet. Open: replacement design, re-basing Gates A and C, ADR-2605151200 amendment. See `AGENTS.md`.
+> **Direction change (2026-10-28, JUN-494 / JUN-500):** the owner decided on **no C dependency** — kotoba built by Amu selfhost, on all three boards (Te M7+M4, Mimi, Atama). The C-based stack named in §12 and §14 (Zephyr LTS, WAMR AOT, Zenoh-Pico, bare-metal C on the M4) is the current reference design only; Amu has no Cortex-M target yet. Open: replacement design, re-basing Gates A and C, ADR-2605151200 amendment. See `AGENTS.md`.
 
 Per ADR §R1. Three reference boards under the Giemon brand (ADR-2605142200), body-part naming (mimi=ear / te=hand / atama=head) consistent with `etzhayyim-project-open-robo` (Giemon Otete).
 
@@ -270,7 +270,7 @@ Per ADR §R1. Three reference boards under the Giemon brand (ADR-2605142200), bo
 | Parameter | Value |
 |---|---|
 | SoC | STMicro STM32H753ZIT6, Cortex-M7 @ 480 MHz, 2 MB flash, 1 MB SRAM |
-| OS / runtime | Zephyr LTS 4.x + WAMR AOT (LLVM 18, `-O3`, no GC) + Zenoh-Pico |
+| OS / runtime | ~~Zephyr LTS 4.x + WAMR AOT (LLVM 18, `-O3`, no GC) + Zenoh-Pico~~ superseded by the 2026-10-28 no-C decision (Amu-selfhost kotoba; replacement design open, JUN-500) |
 | Power | 24 V DC industrial, isolated DC-DC, max 6 W |
 | Digital input | 16 ch × 24 V, opto-isolated, software-debounce, surge-protected |
 | Analog input | 8 ch × 4–20 mA, 16-bit ADS1118, 4 kSPS, individually isolated |
@@ -305,8 +305,8 @@ Per ADR §R1. Three reference boards under the Giemon brand (ADR-2605142200), bo
 | SoC | Rockchip RK3588, ARMv8.2, 4× Cortex-A76 @ 2.4 GHz + 4× Cortex-A55 @ 1.8 GHz |
 | Memory | 16 GB LPDDR5 |
 | Storage | 128 GB eMMC + M.2 NVMe slot |
-| OS | NixOS 25.05 + linuxPackages_rt (PREEMPT_RT 6.6 LTS) |
-| Runtime | CPython 3.11+ / Granian / LangGraph (per ADR-2605080600) + Wasmtime sidecar |
+| OS | ~~NixOS 25.05 + linuxPackages_rt (PREEMPT_RT 6.6 LTS)~~ superseded by the 2026-10-28 no-C decision (replacement design open: Amu has no Atama target; JUN-500 / JUN-508) |
+| Runtime | ~~CPython 3.11+ / Granian / LangGraph (per ADR-2605080600) + Wasmtime sidecar~~ superseded by the 2026-10-28 no-C decision (replacement design open; the ADR is not amended) |
 | Persistence | RisingWave checkpointer client (per ADR-2605082100) over Hyperdrive to RW Vultr |
 | Network | 1 × 2.5 GbE WAN, 4-port TSN switch (802.1Qbv) — Marvell 88Q5050 default; Microchip LAN9692 / NXP SJA1110 alternates |
 | OPC UA FX | bridge sidecar exposing local Zenoh keys as FX subscriptions |

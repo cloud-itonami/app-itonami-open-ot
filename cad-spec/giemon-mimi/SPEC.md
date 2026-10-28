@@ -2,6 +2,9 @@
 
 **Status**: spec only (2026-05-15). KiCad sources begin post-Risk-1 PASS.
 
+
+> **Direction change (2026-10-28, JUN-494 / JUN-500 / JUN-508):** owner decision — no C dependency, kotoba built by Amu selfhost, on all three boards. The C-based stack described in this file is the superseded reference design; the replacement is not designed and Amu has no target for this board yet.
+
 Sensor-side Remote Terminal Unit. Listens to the field — opto-isolated 24 V DI, 4–20 mA AI, RS-485 Modbus RTU — and republishes sample-rate-clean signals onto Zenoh. Hosts up to 8 BFB cells at 1 ms cycle (per ADR-2605151200 §R1).
 
 ## 1. Functional block diagram
